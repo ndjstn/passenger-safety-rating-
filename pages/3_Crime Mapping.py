@@ -31,7 +31,7 @@ def load_crime_data(file_path, download_url):
     # Load the CSV into a DataFrame and return
     return pd.read_csv(file_path)
 
-dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_clean_complaints.csv?rlkey=1sjg3g5pp19suolykdrwlcakz&dl=0"
+dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_clean_complaints.csv?rlkey=1sjg3g5pp19suolykdrwlcakz&dl=1"
 
 # Local path and Dropbox URL
 df = load_crime_data('data/2022_final_clean_complaints.csv', dropbox_url)
