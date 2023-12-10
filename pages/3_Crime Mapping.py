@@ -29,7 +29,7 @@ def load_crime_data(file_path, download_url):
             raise Exception("Failed to download the file")
 
     # Load the CSV into a DataFrame and return
-    return pd.read_csv(file_path)
+    return pd.read_csv(file_path,delimiter=',', error_bad_lines=False)
 
 dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_clean_complaints.csv?rlkey=1sjg3g5pp19suolykdrwlcakz&dl=1"
 
