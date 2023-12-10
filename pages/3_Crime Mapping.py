@@ -37,7 +37,8 @@ dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_c
 
 # Local path and Dropbox URL
 df = load_crime_data('data/2022_final_clean_complaints.csv', dropbox_url)
-
+with st_stdout("info"):
+    print(df.columns,df.head())
 # Function to create and return a MarkerCluster
 def create_marker_cluster(dataframe):
     locations = [[row['Latitude'], 
