@@ -18,12 +18,11 @@ def load_crime_data(file_path, download_url):
     # Check if the file exists locally
     if not os.path.exists(file_path):
         # File doesn't exist, download it
-        r = requests.get(download_url, stream=True)
+        r = requests.get(download_url, allow_redirects=True, stream=True)
         if r.status_code == 200:
             with open(file_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
+                    f.write(chunk)
         else:
             raise Exception("Failed to download the file")
 
