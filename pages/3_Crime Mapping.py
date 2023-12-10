@@ -23,17 +23,12 @@ def load_crime_data(file_path, download_url):
             with open(file_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     if chunk:  # filter out keep-alive new chunks
+                        print(chunk)
                         f.write(chunk)
-                        print(chunk.decode('utf-8', errors='replace'))  # Print to console
         else:
             raise Exception("Failed to download the file")
 
-    # Load the file content and return
-    with open(file_path, 'r') as f:
-        return f.read()
-
-
-    # Load the CSV into a DataFrame
+    # Load the CSV into a DataFrame and return
     return pd.read_csv(file_path)
 
 dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_clean_complaints.csv?rlkey=1sjg3g5pp19suolykdrwlcakz&dl=0"
