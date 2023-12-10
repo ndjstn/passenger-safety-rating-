@@ -23,15 +23,13 @@ def load_crime_data(file_path, download_url):
             with open(file_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     if chunk:  # filter out keep-alive new chunks
-                        print(chunk)
                         f.write(chunk)
         else:
             raise Exception("Failed to download the file")
 
     # Load the CSV into a DataFrame and return
-        # Try reading with different parameters
     try:
-        return pd.read_csv(file_path, delimiter=',', error_bad_lines=False)
+        return pd.read_csv(file_path, on_bad_lines='skip')
     except pd.errors.ParserError as e:
         print(f"Error parsing CSV: {e}")
 
