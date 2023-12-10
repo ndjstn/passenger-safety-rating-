@@ -21,9 +21,17 @@ def load_crime_data(file_path, download_url):
         r = requests.get(download_url, stream=True)
         if r.status_code == 200:
             with open(file_path, 'wb') as f:
-                f.write(r.content)
+                for chunk in r.iter_content(chunk_size=8192):
+                    if chunk:  # filter out keep-alive new chunks
+                        f.write(chunk)
+                        print(chunk.decode('utf-8', errors='replace'))  # Print to console
         else:
             raise Exception("Failed to download the file")
+
+    # Load the file content and return
+    with open(file_path, 'r') as f:
+        return f.read()
+
 
     # Load the CSV into a DataFrame
     return pd.read_csv(file_path)
