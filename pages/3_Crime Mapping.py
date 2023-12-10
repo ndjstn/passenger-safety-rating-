@@ -33,7 +33,7 @@ def load_crime_data(file_path, download_url):
     except pd.errors.ParserError as e:
         st.write(f"Error parsing CSV: {e}")
 
-dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_clean_complaints.csv?rlkey=1sjg3g5pp19suolykdrwlcakz&dl=1"
+dropbox_url = "https://drive.google.com/file/d/1_3_cbNeVR4yulivO7ddVV75QlHxuy9mN/view?usp=sharing"
 
 # Local path and Dropbox URL
 df = load_crime_data('data/2022_final_clean_complaints.csv', dropbox_url)
