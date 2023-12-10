@@ -31,7 +31,7 @@ def load_crime_data(file_path, download_url):
     try:
         return pd.read_csv(file_path, on_bad_lines='skip')
     except pd.errors.ParserError as e:
-        print(f"Error parsing CSV: {e}")
+        st.write(f"Error parsing CSV: {e}")
 
 dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_clean_complaints.csv?rlkey=1sjg3g5pp19suolykdrwlcakz&dl=1"
 
