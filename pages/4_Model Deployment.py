@@ -78,9 +78,6 @@
 #         st.write("Pickup Time:", pickup_time[:2] + ":" + pickup_time[2:])
 #         st.write("Drop-off Time:", dropoff_time[:2] + ":" + dropoff_time[2:])
 import streamlit as st
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
-import openrouteservice
 import folium
 from streamlit_folium import st_folium
 
