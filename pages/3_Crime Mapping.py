@@ -4,6 +4,7 @@ import folium
 from streamlit_folium import st_folium
 from folium.plugins import MarkerCluster
 import requests
+import os
 
 # Site configuration
 st.set_page_config(page_title="RUSAFE", layout="wide", initial_sidebar_state="expanded")
@@ -13,13 +14,24 @@ def load_geojson(url):
     r = requests.get(url)
     return r.json()
 
-# loading of the crime data
-def load_crime_data(file_path):
+def load_crime_data(file_path, download_url):
+    # Check if the file exists locally
+    if not os.path.exists(file_path):
+        # File doesn't exist, download it
+        r = requests.get(download_url, stream=True)
+        if r.status_code == 200:
+            with open(file_path, 'wb') as f:
+                f.write(r.content)
+        else:
+            raise Exception("Failed to download the file")
+
+    # Load the CSV into a DataFrame
     return pd.read_csv(file_path)
 
-# Load crime data
-df = load_crime_data('data/2022_final_clean_complaints.csv')
-print(df.columns)
+dropbox_url = "https://www.dropbox.com/scl/fi/gjaxaw6bz5c20kzgdurao/2022_final_clean_complaints.csv?rlkey=1sjg3g5pp19suolykdrwlcakz&dl=0"
+
+# Local path and Dropbox URL
+df = load_crime_data('data/2022_final_clean_complaints.csv', dropbox_url)
 
 # Function to create and return a MarkerCluster
 def create_marker_cluster(dataframe):
