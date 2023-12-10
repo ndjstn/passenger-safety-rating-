@@ -9,7 +9,6 @@ import requests
 st.set_page_config(page_title="RUSAFE", layout="wide", initial_sidebar_state="expanded")
 
 # Cache the loading of the geojson data
-@st.cache_data()
 def load_geojson(url):
     r = requests.get(url)
     return r.json()
