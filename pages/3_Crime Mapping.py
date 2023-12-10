@@ -28,14 +28,14 @@ def load_crime_data(file_path, download_url):
             raise Exception("Failed to download the file")
 
     # Load the CSV into a DataFrame and return
-    return pd.read_csv(file_path)
+    return pd.read_csv(file_path, delimiter=',', on_bad_lines='skip')
 
 # Replace with your Google Drive download URL
 google_drive_url = "https://drive.google.com/uc?export=download&id=1_3_cbNeVR4yulivO7ddVV75QlHxuy9mN"
 
 # Use the function to load data
 df = load_crime_data('data/2022_final_clean_complaints.csv', google_drive_url)
-
+st.write(df)
 # Function to create and return a MarkerCluster
 def create_marker_cluster(dataframe):
     locations = [[row['Latitude'], 
