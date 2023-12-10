@@ -8,13 +8,12 @@ import requests
 # Site configuration
 st.set_page_config(page_title="RUSAFE", layout="wide", initial_sidebar_state="expanded")
 
-# Cache the loading of the geojson data
+# loading of the geojson data
 def load_geojson(url):
     r = requests.get(url)
     return r.json()
 
-# Cache the loading of the crime data
-@st.cache_data
+# loading of the crime data
 def load_crime_data(file_path):
     return pd.read_csv(file_path)
 
@@ -23,7 +22,6 @@ df = load_crime_data('data/2022_final_clean_complaints.csv')
 print(df.columns)
 
 # Function to create and return a MarkerCluster
-@st.cache_data()
 def create_marker_cluster(dataframe):
     locations = [[row['Latitude'], 
                 row['Longitude']] for index, 
@@ -50,7 +48,7 @@ st.write(f"""
 # URL to the GeoJSON data for NYC Borough Boundaries
 geojson_url = 'https://data.cityofnewyork.us/api/geospatial/tqmj-j8zm?method=export&format=GeoJSON'
 
-# Call the cached function to load geojson
+# load geojson for city borders
 nyc_boroughs_geojson = load_geojson(geojson_url)
 
 # Function to show/hide crimes
