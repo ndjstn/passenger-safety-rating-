@@ -1,5 +1,8 @@
 import streamlit as st
-import requests  # Import requests to make an API call
+from streamlit_gsheets import GSheetsConnection
+
+# Site configuration
+st.set_page_config(page_title="API Access Request Form", layout="wide", initial_sidebar_state="expanded")
 
 st.title("API Access Request Form")
 
@@ -10,15 +13,13 @@ with st.form(key='api_request_form'):
     submit_button = st.form_submit_button(label='Submit')
 
 if submit_button:
-    # Here you would send the data to your backend service
-    # Example: POST request to your API
-    response = requests.post('https://your-backend-service.com/api/submit', json={
-        'name': name,
-        'email': email,
-        'purpose': purpose
-    })
+    # Establish a connection to the Google Sheet
+    conn = st.connection("gsheets", type=GSheetsConnection)
 
-    if response.status_code == 200:
-        st.success("Your request has been successfully submitted!")
-    else:
-        st.error("There was an error submitting your request. Please try again.")
+    # Write the data to the Google Sheet
+    conn.write(
+        spreadsheet=st.secrets["connections"]["gsheets"]["spreadsheet"],
+        worksheet="Your_Worksheet_Name",
+        data=[[name, email, purpose]]
+    )
+    st.success("Your request has been successfully submitted!")
