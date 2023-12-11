@@ -21,7 +21,7 @@ def load_crime_data(file_path):
         # File doesn't exist, download it
         try:
             conn = st.connection("gsheets",type=GSheetsConnection, worksheet="2022_final_clean_complaints")
-            df = conn.read(spreadsheet="1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI")
+            df = conn.read(spreadsheet="544952461")
             return df
         except Exception as e:
             st.error(f"Failed to load data: {e}")
@@ -32,7 +32,6 @@ def load_crime_data(file_path):
 
 # Use the function to load data
 df = load_crime_data('data/2022_final_clean_complaints.csv')
-st.write(type(df))
 st.write(df)
 
 
