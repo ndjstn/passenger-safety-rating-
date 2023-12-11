@@ -2,8 +2,7 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 from streamlit_gsheets import GSheetsConnection
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
+
 
 # Function to validate time format (HHMM)
 def is_valid_time(time_str):
