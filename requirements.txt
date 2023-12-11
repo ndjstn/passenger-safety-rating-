@@ -40,7 +40,7 @@ semver==3.0.2
 setuptools==65.5.0
 six==1.16.0
 smmap==5.0.1
-streamlit==1.16.0
+streamlit==1.22.0
 streamlit-folium==0.16.0
 st-gsheets-connection==0.0.3
 threadpoolctl==3.2.0
