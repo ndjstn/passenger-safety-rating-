@@ -15,14 +15,14 @@ def load_geojson(url):
     r = requests.get(url)
     return r.json()
 
-def load_crime_data(file_path, download_url):
+def load_crime_data(file_path):
     # Check if the file exists locally
     if not os.path.exists(file_path):
         # File doesn't exist, download it
         conn = st.connection("gsheets", type=GSheetsConnection)
         # Create a dataframe from it
         df = conn.read(
-            worksheet=download_url,
+            worksheet="2022_final_clean_complaints",
             ttl="10m",
             nrows=3,
         )
@@ -31,11 +31,8 @@ def load_crime_data(file_path, download_url):
         # Load the CSV into a DataFrame and return
         return pd.read_csv(file_path)
 
-# Replace with your Google Drive download URL
-google_drive_url = "1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI"
-
 # Use the function to load data
-df = load_crime_data('data/2022_final_clean_complaints.csv', google_drive_url)
+df = load_crime_data('data/2022_final_clean_complaints.csv')
 st.write(type(df))
 st.write(df)
 # Function to create and return a MarkerCluster
