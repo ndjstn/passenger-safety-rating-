@@ -20,7 +20,7 @@ def load_crime_data(file_path):
     if not os.path.exists(file_path):
         # File doesn't exist, download it
         try:
-            conn = st.connection("gsheets",
+            conn = st.experimental_connection("gsheets",
                                   type=GSheetsConnection, 
                                   worksheet="2022_final_clean_complaints")
             df = conn.read(spreadsheet="https://docs.google.com/spreadsheets/d/1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI/edit?usp=sharing")
