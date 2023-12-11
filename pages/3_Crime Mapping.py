@@ -22,7 +22,7 @@ def load_crime_data(file_path, download_url):
         conn = st.connection("gsheets", type=GSheetsConnection)
         # Create a dataframe from it
         df = conn.read(
-            worksheet="2022_final_clean_complaints",
+            worksheet=download_url,
             ttl="10m",
             nrows=3,
         )
@@ -33,7 +33,6 @@ def load_crime_data(file_path, download_url):
 
 # Replace with your Google Drive download URL
 google_drive_url = "1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI"
-
 
 # Use the function to load data
 df = load_crime_data('data/2022_final_clean_complaints.csv', google_drive_url)
