@@ -19,15 +19,13 @@ def load_crime_data(file_path):
     # Check if the file exists locally
     if not os.path.exists(file_path):
         # File doesn't exist, download it
-        conn = st.experimental_connection("gsheets", type=GSheetsConnection)
-        # Create a dataframe from it
-        df = conn.read(
-            spreadsheet="1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI",
-            worksheet="2022_final_clean_complaints",
-            ttl="10m",
-            nrows=3,
-        )
-        return df
+        try:
+            conn = st.connection("gsheets",type=GSheetsConnection, worksheet="2022_final_clean_complaints")
+            df = conn.read(spreadsheet="1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI")
+            return df
+        except Exception as e:
+            st.error(f"Failed to load data: {e}")
+            return pd.DataFrame()
     else:
         # Load the CSV into a DataFrame and return
         return pd.read_csv(file_path)
@@ -36,6 +34,9 @@ def load_crime_data(file_path):
 df = load_crime_data('data/2022_final_clean_complaints.csv')
 st.write(type(df))
 st.write(df)
+
+
+
 # Function to create and return a MarkerCluster
 def create_marker_cluster(dataframe):
     locations = [[row['Latitude'], 
