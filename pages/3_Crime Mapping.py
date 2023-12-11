@@ -5,7 +5,7 @@ from streamlit_folium import st_folium
 from folium.plugins import MarkerCluster
 import requests
 import os
-from streamlit_gsheets import GSheets
+from streamlit_gsheets import GSheetsConnection
 
 # Site configuration
 st.set_page_config(page_title="RUSAFE", layout="wide", initial_sidebar_state="expanded")
@@ -19,12 +19,13 @@ def load_crime_data(file_path):
     # Check if the file exists locally
     if not os.path.exists(file_path):
         # File doesn't exist, download it
-        gsheets = GSheets()  # Create a GSheets object
-        df = gsheets.read(
-            spreadsheet_id="1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI",
-            worksheet_name="2022_final_clean_complaints",
+        conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+        # Create a dataframe from it
+        df = conn.read(
+            spreadsheet="1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI",
+            worksheet="2022_final_clean_complaints",
+            ttl="10m",
             nrows=3,
-            ttl="10m"
         )
         return df
     else:
