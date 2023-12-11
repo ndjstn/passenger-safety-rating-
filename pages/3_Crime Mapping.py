@@ -30,10 +30,12 @@ def load_crime_data(file_path, download_url):
     return pd.read_csv(file_path, delimiter=',', on_bad_lines='skip')
 
 # Replace with your Google Drive download URL
-google_drive_url = "https://docs.google.com/spreadsheets/uc?export=download&id=1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI"
+google_drive_url = "https://docs.google.com/spreadsheets/d/1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI/edit?usp=sharing"
+
 
 # Use the function to load data
 df = load_crime_data('data/2022_final_clean_complaints.csv', google_drive_url)
+st.write(type(df))
 st.write(df)
 # Function to create and return a MarkerCluster
 def create_marker_cluster(dataframe):
