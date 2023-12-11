@@ -19,13 +19,11 @@ def load_crime_data(file_path, download_url):
     # Check if the file exists locally
     if not os.path.exists(file_path):
         # File doesn't exist, download it
-        # Create a connection object.
         conn = st.connection("gsheets", type=GSheetsConnection)
         # Create a dataframe from it
         df = conn.read(
             worksheet="2022_final_clean_complaints",
             ttl="10m",
-            usecols=[0, 1],
             nrows=3,
         )
         return df
@@ -34,7 +32,7 @@ def load_crime_data(file_path, download_url):
         return pd.read_csv(file_path)
 
 # Replace with your Google Drive download URL
-google_drive_url = "https://docs.google.com/spreadsheets/d/1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI/edit?usp=sharing"
+google_drive_url = "1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI"
 
 
 # Use the function to load data
