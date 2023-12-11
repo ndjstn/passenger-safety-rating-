@@ -19,12 +19,12 @@ def load_crime_data(file_path):
     # Check if the file exists locally
     if not os.path.exists(file_path):
         # File doesn't exist, download it
-        conn = GSheetsConnection.read("gsheets", type=GSheetsConnection)
-        # Create a dataframe from it
-        df = conn.read(
-            worksheet="2022_final_clean_complaints",
-            ttl="10m",
+        gsheets = GSheetsConnection()  # Create a GSheets object
+        df = gsheets.read(
+            spreadsheet_id="1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI",
+            worksheet_name="2022_final_clean_complaints",
             nrows=3,
+            ttl="10m"
         )
         return df
     else:
