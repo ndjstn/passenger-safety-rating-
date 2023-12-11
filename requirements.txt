@@ -42,6 +42,7 @@ six==1.16.0
 smmap==5.0.1
 streamlit==1.16.0
 streamlit-folium==0.16.0
+st-gsheets-connection==0.0.3
 threadpoolctl==3.2.0
 toml==0.10.2
 toolz==0.12.0

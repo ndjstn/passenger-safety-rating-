@@ -5,6 +5,7 @@ from streamlit_folium import st_folium
 from folium.plugins import MarkerCluster
 import requests
 import os
+from streamlit_gsheets import GSheetsConnection
 
 # Site configuration
 st.set_page_config(page_title="RUSAFE", layout="wide", initial_sidebar_state="expanded")
@@ -18,16 +19,19 @@ def load_crime_data(file_path, download_url):
     # Check if the file exists locally
     if not os.path.exists(file_path):
         # File doesn't exist, download it
-        r = requests.get(download_url, allow_redirects=False, stream=True)
-        if r.status_code == 200:
-            with open(file_path, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=8192):
-                    f.write(chunk)
-        else:
-            raise Exception("Failed to download the file")
-
-    # Load the CSV into a DataFrame and return
-    return pd.read_csv(file_path, delimiter=',', on_bad_lines='skip')
+        # Create a connection object.
+        conn = st.connection("gsheets", type=GSheetsConnection)
+        # Create a dataframe from it
+        df = conn.read(
+            worksheet="2022_final_clean_complaints",
+            ttl="10m",
+            usecols=[0, 1],
+            nrows=3,
+        )
+        return df
+    else:
+        # Load the CSV into a DataFrame and return
+        return pd.read_csv(file_path)
 
 # Replace with your Google Drive download URL
 google_drive_url = "https://docs.google.com/spreadsheets/d/1u7fX9Zf2K6AC7HbEzPO5ZfVzCCF8zQTXyXMUEt0Z3CI/edit?usp=sharing"
